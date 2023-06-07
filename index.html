@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parallax website</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Add CSS styles for animations and transitions */
+        .destination img {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .destination.active img {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2 class="logo">Universe</h2>
+        <nav class="navigation">
+            <a href="#">About</a>
+            <a href="#">Blog</a>
+            <a href="#" class="signup-link">Sign Up</a>
+        </nav>
+    </header>
+
+    <div class="clouds_covered">
+        <img src="Clouds-covered.png" alt="">
+    </div>
+
+    <div class="discover">
+        <div>Discover</div>
+    </div>
+
+    <section class="parallax">
+        <img src="clouds.png" alt="">
+        <div class="ptext">
+            <h2 id="text">Banff</h2>
+        </div>
+        <div class="scroll">SCROLL</div>
+    </section>
+
+    <section class="section section-dark">
+        <h2>Don't Miss</h2>
+    </section>
+
+    <section class="page2">
+        <h2>Top Destinations</h2>
+        <div class="destination">
+            <img src="img1.jpeg" alt="Destination 1">
+        </div>
+        <div class="destination">
+            <img src="img2.jpeg" alt="Destination 2">
+        </div>
+        <div class="destination">
+            <img src="img3.jpeg" alt="Destination 3">
+        </div>
+
+        <div class="matter">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas perspiciatis provident nisi tempore aspernatur voluptatem, consectetur, odit qui eius cumque atque? Iste nobis esse, voluptates officiis, recusandae fuga voluptate quam unde at, odio atque mollitia velit reprehenderit doloribus sed debitis corrupti libero. Delectus, necessitatibus voluptatem?
+        </div>
+    </section>
+
+    <div class="cursor"></div>
+    <div class="cursor2"></div>
+
+
+    
+
+    <script>
+
+        var cursor = document.querySelector(".cursor");
+        var cursor2 = document.querySelector(".cursor2");
+        document.addEventListener("mousemove",function(e){
+          cursor.style.cssText = cursor2.style.cssText = "left: " + e.clientX + "px; top: " + e.clientY + "px;";
+        });
+
+
+        window.addEventListener('scroll', function() {
+            var scrollPosition = window.pageYOffset;
+            var ptext = document.querySelector('.ptext');
+            var discover = document.querySelector('.discover');
+            ptext.style.opacity = 1 - scrollPosition / 400;
+            discover.style.opacity = 1 - scrollPosition / 400;
+        });
+
+        window.addEventListener('scroll', function() {
+            var scrollPosition = window.pageYOffset;
+
+            var destinations = document.querySelectorAll('.destination');
+
+            destinations.forEach(function(destination) {
+                var rect = destination.getBoundingClientRect();
+                var triggerPosition = rect.top + window.pageYOffset - window.innerHeight / 2;
+
+                if (scrollPosition >= triggerPosition) {
+                    destination.classList.add('active');
+                } else {
+                    destination.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
